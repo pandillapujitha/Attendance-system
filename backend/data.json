@@ -1,0 +1,30 @@
+{
+  "students": [
+    {
+      "id": "mvjox9vx8qpm",
+      "rollNo": "101",
+      "name": "Pujitha",
+      "department": "AI&DS",
+      "year": "III"
+    },
+    {
+      "id": "mvjoxqcwgsis",
+      "rollNo": "102",
+      "name": "Nandini",
+      "department": "CSE",
+      "year": "III"
+    }
+  ],
+  "attendance": [
+    {
+      "studentId": "mvjox9vx8qpm",
+      "date": "2026-10-22",
+      "status": "Absent"
+    },
+    {
+      "studentId": "mvjoxqcwgsis",
+      "date": "2026-10-22",
+      "status": "Absent"
+    }
+  ]
+}
