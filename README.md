@@ -1,93 +1,68 @@
-Student Attendance System
+# Student Attendance Management System (Cloud Computing Project)
 
-A web-based application designed to simplify student record management, daily attendance tracking, and attendance report generation through a user-friendly interface.
+**Tech stack:** HTML, CSS, JavaScript, React.js (Vite), Node.js + Express, JWT auth, JSON-file storage, Docker.
 
-Live Demo
+## Features
+- Admin/Teacher login (JWT)
+- Add / edit / delete students
+- Mark daily attendance (Present / Absent, bulk buttons)
+- Dashboard with stats and low-attendance (<75%) list
+- Attendance report with percentage + CSV export
+- REST API, cloud-ready (Docker, environment variables, health check)
 
-Launch Student Attendance System
-
-Project Overview
-
-The Student Attendance System provides a centralized platform for managing student information and monitoring attendance. It allows administrators to maintain student records, record attendance, and review attendance reports efficiently.
-
-Key Features
-Student Management: Add, view, update, and manage student records.
-Attendance Tracking: Record daily attendance for registered students.
-Attendance Reports: View attendance summaries and individual student attendance statistics.
-Admin Authentication: Secure access to application features through administrator login.
-User-Friendly Interface: Navigate between the dashboard, students, attendance, and reports.
-Technology Stack
-Category	Technology
-Frontend	React, Vite
-Backend	Node.js, Express.js
-Programming Language	JavaScript
-Data Storage	JSON file
-Deployment	Render
-Version Control	Git, GitHub
-Application Modules
-Dashboard — View an overview of the attendance system.
-Students — Manage student information, including roll number, department, and year.
-Mark Attendance — Record students' daily attendance status.
-Reports — Review attendance records and percentage summaries.
-Authentication — Access the system through administrator login.
-Installation and Setup
-Prerequisites
-Node.js and npm
-Git
-1. Clone the repository
-git clone https://github.com/pandillapujitha/Attendance-system.git
-cd Attendance-system
-
-2. Install backend dependencies
-cd backend
-npm install
-
-3. Configure environment variables
-
-Create a .env file in the backend directory and configure the required application settings according to .env.example.
-
-4. Start the backend server
-npm start
-
-5. Install and start the frontend
-
-Open a separate terminal from the project root and run:
-
-cd frontend
-npm install
-npm run dev
-
-
-Open the local URL displayed in the terminal to access the application.
-
-Project Structure
-Attendance-system/
-├── backend/
+## Folder structure
+```
+attendance-system/
+├── backend/            Node.js + Express REST API
 │   ├── server.js
-│   ├── data.json
 │   ├── package.json
 │   └── .env.example
-├── frontend/
-│   ├── src/
+├── frontend/           React.js (Vite) UI
 │   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
+│   └── src/ (App.jsx, api.js, styles.css, pages/*)
+├── Dockerfile          Single container for cloud deployment
 └── README.md
+```
 
-Project Objectives
-Reduce manual effort in maintaining student attendance records.
-Simplify daily attendance recording and student management.
-Provide convenient access to attendance summaries and reports.
-Demonstrate full-stack web development using React and Node.js.
-Future Enhancements
-Database integration using MongoDB or PostgreSQL.
-Role-based access for administrators, faculty, and students.
-Export attendance reports to PDF or Excel.
-Improved reporting and attendance analytics.
-Repository
+## Run locally
+Requires Node.js 18+.
 
-Source Code: GitHub – Student Attendance System
+```bash
+# Terminal 1 - backend
+cd backend
+npm install
+npm start            # http://localhost:5000
 
-Author
+# Terminal 2 - frontend
+cd frontend
+npm install
+npm run dev          # http://localhost:3000
+```
+Login: **admin / admin123** (change with ADMIN_USER / ADMIN_PASS env vars).
 
-Developed as an academic project to demonstrate full-stack web development and student attendance management.
+## API
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/login | Get JWT token |
+| GET/POST | /api/students | List / add students |
+| PUT/DELETE | /api/students/:id | Update / delete |
+| GET | /api/attendance/:date | Attendance of a date |
+| POST | /api/attendance | Save attendance `{date, records}` |
+| GET | /api/report | Per-student summary |
+| GET | /api/health | Health check |
+
+## Cloud deployment
+**Option 1 - Render / Railway (easiest):** push to GitHub -> New Web Service -> choose Docker -> set env vars `JWT_SECRET`, `ADMIN_USER`, `ADMIN_PASS`.
+
+**Option 2 - AWS EC2:**
+```bash
+docker build -t attendance-app .
+docker run -d -p 80:5000 -e JWT_SECRET=secret -e ADMIN_PASS=strongpass attendance-app
+```
+
+**Option 3 - AWS Elastic Beanstalk / Azure App Service / Google Cloud Run:** deploy the Docker image.
+
+> Note: data is stored in `backend/data.json`. On cloud platforms with temporary disks, attach a persistent volume or replace storage with MongoDB Atlas / AWS RDS for production.
+
+## Cloud computing concepts covered
+SaaS delivery model, REST API (client-server), containerization (Docker), stateless JWT authentication, environment-based configuration, horizontal scalability, deployment on IaaS/PaaS.
