@@ -1,5 +1,9 @@
 # Student Attendance Management System (Cloud Computing Project)
 
+🌐 Live Demo
+
+Student Attendance System: https://attendance-system-c0vn.onrender.com
+
 **Tech stack:** HTML, CSS, JavaScript, React.js (Vite), Node.js + Express, JWT auth, JSON-file storage, Docker.
 
 ## Features
